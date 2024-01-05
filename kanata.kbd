@@ -14,7 +14,7 @@
 
 ;; Adding ISO key definition
 (deflocalkeys-linux
-  < 43
+  * 55
 )
 
 ;;;
@@ -23,8 +23,8 @@
 (defsrc
   grv           1    2    3    4    5    6    7    8    9    0    -    =    bspc
   tab           q    w    e    r    t    y    u    i    o    p    [    ]    ret
-  caps          a    s    d    f    g    h    j    k    l    ;    '    
-  lsft     \    z    x    c    v    b    n    m    ,    .    /    rsft
+  caps          a    s    d    f    g    h    j    k    l    ;    '    *
+  lsft    \     z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            ralt rmet rctl
 )
 
@@ -42,7 +42,7 @@
 _             _    _    _    _    _    _    _    _    _    _    _    _    _
 _             _    _    _    _    _    _    _    _    _    _    _    _    _
 caps          _    _    _    _    _    _    _    _    _    _    _    _
-@sfl     _    @ctr @alt _    _    _    _    _    _    _    _    @sfr
+@sfl     @win @ctr @ral _    _    _    _    _    _    _    _    @sfr
 _    _    @tbl          @nav           @tbr  _    _
 )
 
@@ -88,7 +88,8 @@ _    _    @tbl          @nav           @tbr  _    _
   ;; Tap-mods definition
   ;; Must be hold long enough (200ms) to become a modifier.
   ctr (tap-hold 200 200 z lctl)
-  alt (tap-hold 200 200 x lalt)
+  ral (tap-hold 200 200 x lalt)
+  win (tap-hold 200 200 \ lmet)
   sfl (tap-hold 200 200 del lsft)
   sfr (tap-hold 200 200 ret  rsft)
   
