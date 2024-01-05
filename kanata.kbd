@@ -59,8 +59,8 @@ _    _    @tbl          @nav           @tbr  _    _
 
   ;; layer-switch changes the base layer.
   std (layer-switch qwerty)
-  nav (tap-hold 200 200 spc (layer-toggle vimnav))
-
+  ;;nav (tap-hold 200 200 spc (layer-toggle vimnav))
+  ;;nav (tap-hold 200 200 (macro spc) (layer-toggle vimnav))
   ;; Thumb keys :
   tbl (tap-hold-press 200 200 bspc lsft) 
   tbr (tap-hold-press 200 200 del ralt)
@@ -83,4 +83,11 @@ _    _    @tbl          @nav           @tbr  _    _
   mwr (mwheel-right 50 120)
 )
 
+(deffakekeys spc spc)
+(defalias
+  nav (tap-hold 200 200 
+    (macro (on-press-fakekey spc press) 20 (on-press-fakekey spc release))
+    (layer-toggle vimnav)
+  )
+)
 ;; vim: set ft=lisp
