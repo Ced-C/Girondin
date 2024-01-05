@@ -51,6 +51,10 @@ _    _    @tbl          @nav           @tbr  _    _
   _    _    esc            _              ret  _    _
 )
 
+;; def fake keys to make 1dk compatible with Kanata
+;; see https://github.com/jtroo/kanata/issues/691 for more details
+(deffakekeys spc spc)
+
 ;; `defalias` is used to declare a shortcut for a more complicated action to keep
 ;; the deflayer declarations clean and aligned. The alignment in deflayers is
 ;; not necessary, but is highly recommended for ease of understanding visually.
@@ -61,6 +65,10 @@ _    _    @tbl          @nav           @tbr  _    _
   std (layer-switch qwerty)
   ;;nav (tap-hold 200 200 spc (layer-toggle vimnav))
   ;;nav (tap-hold 200 200 (macro spc) (layer-toggle vimnav))
+  nav (tap-hold 200 200 
+    (macro (on-press-fakekey spc press) 30 (on-press-fakekey spc release))
+    (layer-toggle vimnav)
+  )
   ;; Thumb keys :
   tbl (tap-hold-press 200 200 bspc lsft) 
   tbr (tap-hold-press 200 200 del ralt)
@@ -83,11 +91,4 @@ _    _    @tbl          @nav           @tbr  _    _
   mwr (mwheel-right 50 120)
 )
 
-(deffakekeys spc spc)
-(defalias
-  nav (tap-hold 200 200 
-    (macro (on-press-fakekey spc press) 20 (on-press-fakekey spc release))
-    (layer-toggle vimnav)
-  )
-)
 ;; vim: set ft=lisp
