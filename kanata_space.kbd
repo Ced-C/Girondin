@@ -14,7 +14,7 @@
 
 ;; Adding ISO key definition
 (deflocalkeys-linux
-  * 55
+  <    105
 )
 
 ;;;
@@ -22,12 +22,11 @@
 ;;;
 (defsrc
   grv           1    2    3    4    5    6    7    8    9    0    -    =    bspc
-  tab           q    w    e    r    t    y    u    i    o    p    [    ]    ret
-  caps          a    s    d    f    g    h    j    k    l    ;    '    *
-  lsft    \     z    x    c    v    b    n    m    ,    .    /    rsft
+  tab           q    w    e    r    t    y    u    i    o    p    [    ]    \
+  caps          a    s    d    f    g    h    j    k    l    ;    '    ret
+  lsft          z    x    c    v    b    n    m    ,    .    /    rsft
   lctl lmet lalt           spc            ralt rmet rctl
 )
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Base layer (active by default when kanata starts up)
@@ -42,8 +41,8 @@
 _             _    _    _    _    _    _    _    _    _    _    _    _    _
 _             _    _    _    _    _    _    _    _    _    _    _    _    _
 caps          _    _    _    _    _    _    _    _    _    _    _    _
-@sfl     @win @ctr @ral _    _    _    _    _    _    _    _    @sfr
-_    _    @tbl          @nav           @tbr  _    _
+@sfl          _    @alt _    _    _    _    _    _    _    _    @sfr
+_    _    @tbl          _              @tbr  _    _
 )
 
 
@@ -58,16 +57,17 @@ _    _    @tbl          @nav           @tbr  _    _
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (deflayer vimnav
   _         M-1  M-2  M-3  M-4  M-5  M-6  M-7  M-8  M-9  M-0  C--  C-=  lrld
-  _         g    4    5    6    _    home pgdn pgup end  _    _    _    _
-  caps      v    1    2    3    0    lft  down up   rght _    _    _
-  _    _    _    7    8    9    C-v  @mwl @mwd @mwu @mwr _    _
+  _         _    4    5    6    _    home pgdn pgup end  _    _    _    _
+  caps      C-a  1    2    3    0    lft  down up   rght _    _    _
+  _    _    7    8    9    C-v  @mwl @mwd @mwu @mwr _    _
   _    _    esc            _              ret  _    _
 )
 
-;; def fake keys to make 1dk compatible with Kanata
-;; see https://github.com/jtroo/kanata/issues/691 for more details
-(deffakekeys spc spc)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Aliases
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; `defalias` is used to declare a shortcut for a more complicated action to keep
 ;; the deflayer declarations clean and aligned. The alignment in deflayers is
 ;; not necessary, but is highly recommended for ease of understanding visually.
@@ -77,12 +77,8 @@ _    _    @tbl          @nav           @tbr  _    _
 
   ;; layer-switch changes the base layer.
   std (layer-switch qwerty)
-  ;;nav (tap-hold 200 200 spc (layer-toggle vimnav))
-  ;;nav (tap-hold 200 200 (macro spc) (layer-toggle vimnav))
-  nav (tap-hold 200 200 
-    (macro (on-press-fakekey spc press) 30 (on-press-fakekey spc release))
-    (layer-toggle vimnav)
-  )
+  nav (tap-hold 200 200 spc (layer-toggle vimnav))
+
   ;; Thumb keys :
   tbl (tap-hold-press 200 200 bspc lsft) 
   tbr (tap-hold-press 200 200 del ralt)
@@ -91,8 +87,7 @@ _    _    @tbl          @nav           @tbr  _    _
   ;; Tap-mods definition
   ;; Must be hold long enough (200ms) to become a modifier.
   ctr (tap-hold 200 200 z lctl)
-  ral (tap-hold 200 200 x lalt)
-  win (tap-hold 200 200 \ lmet)
+  alt (tap-hold 200 200 x lalt)
   sfl (tap-hold 200 200 del lsft)
   sfr (tap-hold 200 200 ret  rsft)
   
