@@ -1,0 +1,14 @@
+[Unit]
+Description=Kanata keyboard remapper
+Documentation=https://github.com/jtroo/kanata
+
+[Service]
+Environment=PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/bin
+Environment=DISPLAY=:0
+Environment=HOME=/home/cedc
+Type=simple
+ExecStart=/home/cedc/AppData/linux-desktop-configuration/configFiles/Clavier/Girondin/kanata --cfg /home/cedc/AppData/linux-desktop-configuration/configFiles/Clavier/Girondin/kanata.kbd
+Restart=no
+
+[Install]
+WantedBy=default.target

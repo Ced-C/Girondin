@@ -27,7 +27,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Base layer (active by default when kanata starts up)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;  - the 3 main thumb keys (Alt/tbl, Space/nav,       AltGr/tbr) become mod/taps
+;;  - the 3 main thumb keys (Alt/tbl, Space/nav, AltGr/tbr) become mod/taps
 ;;  - Ctrl and Alt mods on Z X, to 
 ;;        - avoid activating modtap by accident
 ;;        - Alt is also very close to its intitial position for alt+tab shortcut
@@ -36,8 +36,8 @@
 (deflayer qwerty
 _             _    _    _    _    _    _    _    _    _    _    _    _    _
 _             _    _    _    _    _    _    _    _    _    _    _    _    _
-_             _    @sa  @dw  @fc  _    _    @jc  @kw  @la  _    _    _
-_    _        _    @xa  _    _    _    _    _    _    _    _    _
+@cw           _    _    @dd  @ff  _    _    @jj  _    _    _    _    _
+@sfl   @win   @ctr @ral _    _    _    _    _    _    _    _    @sfr
 _    _    @tbl          @nav           @tbr  _    _
 )
 
@@ -54,14 +54,19 @@ _    _    @tbl          @nav           @tbr  _    _
 (deflayer vimnav
   _         M-1  M-2  M-3  M-4  M-5  M-6  M-7  M-8  M-9  M-0  C--  C-=  lrld
   _         g    4    5    6    _    home pgdn pgup end  _    _    _    _
-  caps      v    1    @2w  @3c  0    lft  down up   rght _    _    _
-  _    _    _    7    @8s  9    C-v  @mwl @mwd @mwu @mwr _    _
+  caps      v    1    2    3    0    lft  down up   rght _    _    _
+  _    _    _    7    8    9    C-v  @mwl @mwd @mwu @mwr _    _
   _    _    esc            _              ret  _    _
 )
 
 ;; def fake keys to make 1dk compatible with Kanata
 ;; see https://github.com/jtroo/kanata/issues/691 for more details
-;;(deffakekeys spc spc)
+(deffakekeys 
+   spc spc
+   f   f
+   d   d
+   j   j
+)
 
 ;; `defalias` is used to declare a shortcut for a more complicated action to keep
 ;; the deflayer declarations clean and aligned. The alignment in deflayers is
@@ -72,30 +77,47 @@ _    _    @tbl          @nav           @tbr  _    _
 
   ;; layer-switch changes the base layer.
   std (layer-switch qwerty)
-  nav (tap-hold 200 200 spc (layer-toggle vimnav))
-
+  ;;nav (tap-hold 200 200 spc (layer-toggle vimnav))
+  ;;nav (tap-hold 200 200 (macro spc) (layer-toggle vimnav))
+  nav (tap-hold 200 200 
+    (macro (on-press-fakekey spc press) 30 (on-press-fakekey spc release))
+    (layer-toggle vimnav)
+  )
   ;; Thumb keys :
   tbl (tap-hold-press 200 200 bspc lsft) 
   tbr (tap-hold-press 200 200 del ralt)
+  ;; previous config with dead shift (tap-hold-press 200 200 (one-shot-press 2000 rsft) ralt)
 
-  ;; HOM ROW MODs
-  ;; CTRL
-  3c (tap-hold 200 200 3 lctl)
-  fc (tap-hold 200 200 f lctl)
-  jc (tap-hold 200 200 j lctl)
+  ;; Tap-mods definition
+  ;; Must be hold long enough (200ms) to become a modifier.
 
-  ;; Méta
-  2w (tap-hold 200 200 2 lmet)
-  dw (tap-hold 200 200 d lmet)
-  kw (tap-hold 200 200 k lmet)
+  ;;ss (tap-hold 200 300 s lmet)
+  ;;dd (tap-hold 200 300 d lalt)
 
-  ;; Alt
-  xa (tap-hold 200 200 x lalt)
-  sa (tap-hold 200 200 s lalt)
-  la (tap-hold 200 200 l lalt)
+  ;; Alt ;;;;;;;;;;;;;;;;;;;;;
+
+  ral (tap-hold 200 200 x lalt)
+  dd (tap-hold 200 300 
+        (macro (on-press-fakekey d press) 10 (on-press-fakekey d release))
+        lalt
+  )
   
-  ;; Shift
-  8s  (tap-hold 200 200 8 rsft)
+  ;; Ctrl ;;;;;;;;;;;;;;;;;;;;;
+  ff (tap-hold 200 300 
+        (macro (on-press-fakekey f press) 10 (on-press-fakekey f release))
+        lctl
+  )
+  jj (tap-hold 200 300 
+        (macro (on-press-fakekey j press) 10 (on-press-fakekey j release))
+        lctl
+  )
+  ;;kk (tap-hold 200 300 k lalt)
+  ;;ll (tap-hold 200 300 l rmet)
+  
+  ctr (tap-hold 200 200 z lctl)
+  win (tap-hold 200 200 \ lmet)
+  sfl (tap-hold 200 200 del lsft)
+  sfr (tap-hold 200 200 ret  rsft)
   
   ;; Unused for now
   cw (caps-word 2000)
