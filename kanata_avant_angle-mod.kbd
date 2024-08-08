@@ -11,19 +11,16 @@
 ;; declarations must have the same number of keys as defsrc. Any keys not listed
 ;; in defsrc will be passed straight to the operating system.
 
-(deflocalkeys-linux
->   86
-)
 
 ;;;
 ;;; ON A ISO KEYBOARD, STD DEFINITION
 ;;;
 (defsrc
-  grv           1    2    3    4    5         6    7    8    9    0    -    =    bspc
-  tab           q    w    e    r    t         y    u    i    o    p    [    ]    ret
-  caps          a    s    d    f    g         h    j    k    l    ;    '    \
-  lsft          >    z    x    c    v    b    n    m    ,    .    /    rsft
-  lctl                 lmet      lalt   spc   ralt      rmet rctl
+  grv           1    2    3    4    5    6    7    8    9    0    -    =    bspc
+  tab           q    w    e    r    t    y    u    i    o    p    [    ]    ret
+  caps          a    s    d    f    g    h    j    k    l    ;    '    102d
+  lsft    \     z    x    c    v    b    n    m    ,    .    /    rsft
+  lctl lmet lalt           spc            ralt rmet rctl
 )
 
 
@@ -37,11 +34,11 @@
 ;;  - CapsLock stays the sape capword (caps until end of word) seems buggy so far…
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (deflayer qwerty
-_             _    _    _    _    _         _    _    _    _    _    _    _    _
-_             _    _    _    _    _         _    _    _    _    _    _    _    _
-_             _    @s⎇ @d⎈  @f⌘  _         _    @j⌘ @k⎈  @l⎇ _    _    _
-_             _    @z⎇  _    _   _   rctl  _    _    _    _    _    _
-_                       _      @tbl   @nav  @tbr      _    _
+_             _    _    _    _    _    _    _    _    _    _    _    _    _
+_             _    _    _    _    _    _    _    _    _    _    _    _    _
+_             _    @sa  @dw  @fc  _    _    @jc  @kw  @la  _    _    _
+_    _        _    @xa  _    _    _    _    _    _    _    _    _
+_    _    @tbl          @nav           @tbr  _    _
 )
 
 
@@ -55,11 +52,11 @@ _                       _      @tbl   @nav  @tbr      _    _
 ;; except for linux-dev, i.e. you cannot live reload and switch keyboard devices.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (deflayer vimnav
-  _          M-1  M-2  M-3  M-4  M-5       M-6  M-7  M-8  M-9  M-0  C--  C-=  lrld
-  _          kp,  4    5    6    kp-       home pgdn pgup end  _    _    _    _
-  caps       kp.  1    @2⎈  @3⌘  0         lft  down up   rght _    _    _
-  _          spc  7    @8⇧  9    kp/ C-v   @mwl @mwd @mwu @mwr _    _
-  _                    _       esc    _    ret       _    _
+  _         M-1  M-2  M-3  M-4  M-5  M-6  M-7  M-8  M-9  M-0  C--  C-=  lrld
+  _         g    4    5    6    _    home pgdn pgup end  _    _    _    _
+  caps      v    1    @2w  @3c  0    lft  down up   rght _    _    _
+  _    _    _    7    @8s  9    C-v  @mwl @mwd @mwu @mwr _    _
+  _    _    esc            _              ret  _    _
 )
 
 ;; def fake keys to make 1dk compatible with Kanata
@@ -72,7 +69,6 @@ _                       _      @tbl   @nav  @tbr      _    _
 ;; Aliases are referred to by `@<alias_name>`.
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defalias
-  s/ (unicode /)
 
   ;; layer-switch changes the base layer.
   std (layer-switch qwerty)
@@ -84,22 +80,22 @@ _                       _      @tbl   @nav  @tbr      _    _
 
   ;; HOM ROW MODs
   ;; CTRL
-  3⌘ (tap-hold 200 200 3 lctl)
-  f⌘ (tap-hold 200 200 f lctl)
-  j⌘ (tap-hold 200 200 j lctl)
+  3c (tap-hold 200 200 3 lctl)
+  fc (tap-hold 200 200 f lctl)
+  jc (tap-hold 200 200 j lctl)
 
   ;; Méta
-  2⎈ (tap-hold 200 200 2 lmet)
-  d⎈ (tap-hold 200 200 d lmet)
-  k⎈ (tap-hold 200 200 k lmet)
+  2w (tap-hold 200 200 2 lmet)
+  dw (tap-hold 200 200 d lmet)
+  kw (tap-hold 200 200 k lmet)
 
   ;; Alt
-  z⎇ (tap-hold 200 200 z lalt)
-  s⎇ (tap-hold 200 200 s lalt)
-  l⎇ (tap-hold 200 200 l lalt)
+  xa (tap-hold 200 200 x lalt)
+  sa (tap-hold 200 200 s lalt)
+  la (tap-hold 200 200 l lalt)
   
   ;; Shift
-  8⇧  (tap-hold 200 200 8 rsft)
+  8s  (tap-hold 200 200 8 rsft)
   
   ;; Unused for now
   cw (caps-word 2000)
